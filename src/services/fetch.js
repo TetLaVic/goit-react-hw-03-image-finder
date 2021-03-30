@@ -7,14 +7,16 @@ axios.defaults.baseURL = BASE_URL;
 const fetchImages = (query, page) => {
   const perPage = 12;
   const url = `?image_type=photo&orientation=horizontal&q=${query}&page=${page}&per_page=${perPage}&key=${API_KEY}`;
-  return axios
-    .get(url)
-    .then(response => {
-      return response;
-    })
-    .then(({ data }) => {
-      return data.hits;
-    });
+  return (
+    axios
+      .get(url)
+      // .then(response => {
+      //   return response;
+      // })
+      .then(({ data }) => {
+        return data.hits;
+      })
+  );
 };
 
 export default fetchImages;

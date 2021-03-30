@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './ImageGalleryItem.module.css';
 
-const ImageGalleryItem = ({ image }) => {
+const ImageGalleryItem = ({ image, onClick }) => {
   const { id, webformatURL, tags } = image;
   return (
-    <li className={styles.ImageGalleryItem} key={id}>
+    <li className={styles.ImageGalleryItem} key={id} onClick={onClick}>
       <img
         src={webformatURL}
         alt={tags}

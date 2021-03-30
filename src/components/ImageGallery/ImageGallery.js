@@ -4,24 +4,33 @@ import styles from './ImageGallery.module.css';
 import Modal from '../Modal';
 
 class ImageGallery extends Component {
-  state = { showModal: false };
+  state = { image: null };
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  hideModal = () => {
+    this.setState({ image: null });
+  };
+
+  showModal = image => {
+    this.setState({ image });
   };
 
   render() {
     const { images } = this.props;
-    console.log(this.props);
     return (
       <>
-        <ul className={styles.ImageGallery} onClick={this.toggleModal}>
+        <ul className={styles.ImageGallery}>
           {images.map(image => {
-            return <ImageGalleryItem image={image} key={image.id} />;
+            return (
+              <ImageGalleryItem
+                image={image}
+                key={image.id}
+                onClick={() => this.showModal(image)}
+              />
+            );
           })}
         </ul>
-        {this.state.showModal && (
-          <Modal onClose={this.toggleModal}>{images}</Modal>
+        {this.state.image && (
+          <Modal onClose={this.hideModal} image={this.state.image} />
         )}
       </>
     );
