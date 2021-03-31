@@ -2,6 +2,7 @@ import { Component } from 'react';
 import ImageGalleryItem from './ImageGalleryItem';
 import styles from './ImageGallery.module.css';
 import Modal from '../Modal';
+import PropTypes from 'prop-types';
 
 class ImageGallery extends Component {
   state = { image: null };
@@ -16,6 +17,7 @@ class ImageGallery extends Component {
 
   render() {
     const { images } = this.props;
+
     return (
       <>
         <ul className={styles.ImageGallery}>
@@ -36,5 +38,9 @@ class ImageGallery extends Component {
     );
   }
 }
+
+ImageGallery.propTypes = {
+  images: PropTypes.array,
+};
 
 export default ImageGallery;

@@ -7,46 +7,13 @@ axios.defaults.baseURL = BASE_URL;
 const fetchImages = (query, page) => {
   const perPage = 12;
   const url = `?image_type=photo&orientation=horizontal&q=${query}&page=${page}&per_page=${perPage}&key=${API_KEY}`;
-  return (
-    axios
-      .get(url)
-      // .then(response => {
-      //   return response;
-      // })
-      .then(({ data }) => {
-        return data.hits;
-      })
-  );
+  return axios.get(url).then(({ data }) => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
+    return data.hits;
+  });
 };
 
 export default fetchImages;
-// export default class ApiService {
-//   constructor() {
-//     // this.searchQuery = '';
-//     // this.page = 1;
-//     this.perPage = 12;
-//   }
-
-//   fetchImages(query, page) {
-//     const url = `?image_type=photo&orientation=horizontal&q=${query}&page=${page}&per_page=${this.perPage}&key=${API_KEY}`;
-
-//     return axios
-//       .get(url)
-//       .then(response => console.log(response))
-//       .then(({ hits }) => {
-//         console.log({ hits });
-//         this.page += 1;
-//         return hits;
-//       });
-//   }
-//   // get query() {
-//   //   return this.searchQuery;
-//   // }
-//   // set query(newQuery) {
-//   //   return (this.searchQuery = newQuery);
-//   // }
-
-//   // resetPage() {
-//   //   this.page = 1;
-//   // }
-// }

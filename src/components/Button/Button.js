@@ -1,13 +1,15 @@
 import React from 'react';
 import styles from './Button.module.css';
+import PropTypes from 'prop-types';
 
-const Button = () => {
-  return <button className={styles.Button}>Load more</button>;
+const Button = ({ onClick }) => {
+  return (
+    <button type="submit" onClick={onClick} className={styles.Button}>
+      Load more
+    </button>
+  );
 };
 
-export default Button;
+Button.propTypes = { onClick: PropTypes.func.isRequired };
 
-// window.scrollTo({
-//   top: document.documentElement.scrollHeight,
-//   behavior: 'smooth',
-// });
+export default Button;
