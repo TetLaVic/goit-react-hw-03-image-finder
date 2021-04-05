@@ -11,15 +11,24 @@ class App extends Component {
   state = { query: '', page: 1, gallery: [] };
 
   componentDidUpdate = (_, prevState) => {
-    if (
-      this.state.query !== prevState.query ||
-      prevState.page !== this.state.page
-    ) {
-      const { query, page } = this.state;
+    const { query, page } = this.state;
+
+    if (this.state.query !== prevState.query) {
       this.setState({ gallery: [] });
       fetchImages(query, page).then(images => {
         this.setState({ gallery: [...images] });
       });
+    }
+
+    if (
+      this.state.query === prevState.query &&
+      prevState.page !== this.state.page
+    ) {
+      fetchImages(query, page).then(images =>
+        this.setState(prevState => ({
+          gallery: [...prevState.gallery, ...images],
+        })),
+      );
     }
   };
 
@@ -32,10 +41,8 @@ class App extends Component {
       <>
         <Searchbar onSubmit={this.handleNewQuery} />
 
-        {this.state.gallery ? (
-          <>
-            <ImageGallery images={this.state.gallery} />
-          </>
+        {!this.state.gallery ? (
+          <ImageGallery images={this.state.gallery} />
         ) : (
           <Loader
             type="Hearts"
@@ -45,7 +52,7 @@ class App extends Component {
             timeout={3000}
           />
         )}
-        {this.state.gallery.length === 12 ? (
+        {this.state.gallery.length && this.state.gallery.length % 12 === 0 ? (
           <Button
             onClick={() => {
               this.setState(prevState => ({ page: prevState.page + 1 }));
