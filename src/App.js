@@ -41,7 +41,7 @@ class App extends Component {
       <>
         <Searchbar onSubmit={this.handleNewQuery} />
 
-        {!this.state.gallery ? (
+        {this.state.gallery ? (
           <ImageGallery images={this.state.gallery} />
         ) : (
           <Loader

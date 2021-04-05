@@ -16,13 +16,7 @@ const ImageGalleryItem = ({ image, onClick }) => {
 };
 
 ImageGalleryItem.propTypes = {
-  image: PropTypes.objectOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      webformatURL: PropTypes.string,
-      tags: PropTypes.array,
-    }),
-  ),
+  image: PropTypes.object,
   onClick: PropTypes.func.isRequired,
 };
 
